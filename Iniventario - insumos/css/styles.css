@@ -1,0 +1,339 @@
+:root{
+    --blanco: white;
+    --negro:black;
+    --primario:#ffc107;
+    --secundario:#0097a7;
+    --gris:#757575;
+    --grisclaro:#dfe9f3;
+    --negro: #000000;
+    --amarillo: #E08709;;
+    --verde: #71B100;
+    --blanco: #FFFFFF;
+    --gris: #e1e1e1;
+    --grisOscuro: #333333;
+    --rojo: #d11111;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: "Nunito", sans-serif;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body{
+    font-size: 1.6rem;
+    line-height: 1.8;
+}
+header{
+    width: 100%;
+    height: auto;
+    background-color: #00000009;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    border-radius: 1rem;
+}
+footer{
+    width: 100%;
+    height: auto;
+    margin-top: 15rem;
+    background-color: #00000009;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 1rem;
+    border-radius: 1rem;
+}
+p {
+    font-size: 2rem;
+}
+.contenedor {
+    width: 95%;
+    max-width: 160rem;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+img,
+picture {
+    width: 100%;
+    display: block;
+}
+
+h1, h2, h3 {
+    font-family: "Nunito", sans-serif;
+    margin: calc(0rem / 2) 0;
+    font-weight: 300;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3.8rem;
+}
+h2 {
+    font-size: 3.4rem;
+}
+h3 {
+    font-size: 3rem;
+}
+h4 {
+    font-size: 2.6rem;
+}
+
+.btn-azul{
+    background-color: #1d5f88;;
+    color: white;
+    font-size: 1.5rem;
+}
+.btn-azul:hover{
+    background-color: rgb(37, 125, 167);
+    transition: .5s;
+}
+
+.btn-verde{
+    background-color: var(--verde);
+    color: white;
+    font-size: 1.5rem;
+}
+.btn-verde:hover{
+    background-color:var(--verde);
+    transition: .5s;
+}
+
+/********************INICIO**********************/
+header h4{
+    margin: 1rem 0;
+}
+
+header img{
+    width: 6rem;
+    height: 5rem;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 1rem white);
+}
+
+.body{
+    background-image: url(/img/urgencias-hospital.jpg.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contenedor h2,h1{
+    margin: 2rem auto;
+    font-weight: 400;
+}
+
+.contenedor img{
+    width: 8rem;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 .5rem rgb(255, 255, 255));
+}
+
+.formulario{
+    margin: 3rem auto;
+    max-width: 50rem;
+    height: auto;
+    border: 1px solid rgba(0, 0, 0, 0.096);
+    border-radius: 1rem;
+    padding: 4rem;
+    background-color: rgba(0, 0, 0, 0.180);
+}
+
+.formulario label{
+    font-size: 2rem;
+}
+
+input[type='text']{
+    width: 15%;
+    padding: .9rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.281);
+    border-radius: 1rem;
+    font-size: 1.7rem;
+    margin: .5rem;
+}
+
+
+.formulario input[type='text'],input[type='email'],input[type='password'],input[type='date'],input[type='number']{
+    width: 100%;
+    padding: 1rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.281);
+    border-radius: 1rem;
+    font-size: 1.7rem;
+    margin: .5rem;
+}
+
+
+.formulario select{
+    width: 50%;
+    padding: 1rem;
+    text-transform: uppercase;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.281);
+    border-radius: 1rem;
+    font-size: 1.7rem;
+    margin: .5rem;
+}
+
+.boton{
+    padding: 1.2rem;
+    margin: 1.5rem auto;
+    border: none;
+    border-radius: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.281);
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+
+/*******************INTERFAZ-MENU**********************/
+
+.body-menu{
+    background-color: #c6d9e0;
+}
+
+.div-menu{
+    max-width: 50rem;
+    height: auto;
+    border-radius: 1.5rem;
+    margin: 6rem auto;
+    padding: 3rem;
+    background-color: #212b4a7a;
+}
+
+ul{
+    padding: 0;
+}
+
+ul a{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+    margin-top: 3rem;
+    color: var(--negro);
+    background-color: var(--blanco);
+}
+
+ul a:hover{
+    background-color: rgba(255, 255, 255, 0.637);
+    transition: .5s;
+}
+
+ul i{
+    margin: .5rem;
+}
+ul img{
+    width: 10rem;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 .5rem rgb(255, 255, 255));
+}
+
+/*************iconos boostrap ************/
+
+.bi{
+    border-radius: 50%;
+    padding: .7rem;
+    background-color: rgba(255, 255, 255, 0.404);
+}
+
+/*************ALERTA ERRORES Y EXITO ************/
+
+.alerta{
+    padding: rem;
+    text-align: center;
+    color: var(--blanco);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 1rem auto;
+    width: 40%;
+    border-radius: 10rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.062);
+
+}
+.error{
+    background-color:#b30031;
+}
+
+.exito{
+    background-color: #1d5f88;
+}
+
+/*******************ACTUALIZAR***********************/
+
+table.insumos{
+    width: 100%;
+    border-spacing: 0;
+    margin: 0 auto;
+    border-radius: 10rem;
+}
+
+/* thead{
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    /* border: 1px solid black; 
+} */
+
+th{
+    color: var(--negro);
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(7, 7, 7, 0.493);
+    border-radius: .5rem;
+    text-transform: uppercase;
+}
+td{
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.800);
+    border: 1px solid rgba(255, 255, 255, 0.493);
+    color: white;
+    border-radius: .5rem;
+}
+.w-100{
+    width: 100%;
+}
+
+.boton-opc1{
+    background-color: brown;
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    color: white;
+    width: 50%;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin: .5rem 0;
+    border-radius: 3rem;
+    font-size: 1.5rem;
+}
+.boton-opc2{
+    background-color: rgb(45, 77, 146);
+    color: white;
+    width: 50%;
+    display: block;
+    width: 100%;
+    margin: .5rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.466);
+    border-radius: 3rem;
+}
+
+
+.section{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+}
