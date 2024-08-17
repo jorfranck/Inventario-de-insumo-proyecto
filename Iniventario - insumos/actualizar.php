@@ -6,41 +6,40 @@
     $auth = estaAutenticado();
     if(!$auth){
         header('location: /inicio.php');
+        exit;
     }
 
-    //escribir el query base
-    $query = "SELECT * FROM insumos";
-
-    //obtener el término de búsqueda si existe
+    // Preparar la consulta
+    $query = "SELECT * FROM equipos";
     $busqueda = $_GET['q'] ?? '';
 
-
-    $query_count = "SELECT tipo, COUNT(*) as cantidad FROM insumos WHERE fecha_ret IS NULL AND retirante IS NULL GROUP BY tipo";
-    $resultadoConsultaCount = mysqli_query($db, $query_count);
-
-
-    //aplicar filtro de búsqueda si se ingresó un término
+    // Aplicar filtro de búsqueda si se ingresó un término
     if (!empty($busqueda)) {
-        $query .= " WHERE titulo LIKE '%$busqueda%' OR tipo LIKE '%$busqueda%' OR codigo LIKE '%$busqueda%'";
+        $busqueda = mysqli_real_escape_string($db, $busqueda);
+        $query .= " WHERE equipo LIKE '%$busqueda%' OR codigo LIKE '%$busqueda%'";
     }
 
-    //consultar DB
+    // Consultar DB
     $resultadoConsulta = mysqli_query($db, $query);
 
-    //mensaje condicional
+    // Manejar el resultado
     $resultado = $_GET['resultado'] ?? null;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'];
-        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
 
         if ($id) {
-            // ELIMINAR LA INSUMO
-            $query = "DELETE FROM insumos WHERE id = ${id}";
-            $resultado = mysqli_query($db, $query);
+            // ELIMINAR EL EQUIPO
+            $query = "DELETE FROM equipos WHERE id = ?";
+            $stmt = mysqli_prepare($db, $query);
+            mysqli_stmt_bind_param($stmt, 'i', $id);
+            $resultado = mysqli_stmt_execute($stmt);
 
             if ($resultado) {
                 header('location: /actualizar.php?resultado=3');
+                exit;
+            } else {
+                echo 'Error: ' . mysqli_error($db);
             }
         }
     }
@@ -49,74 +48,54 @@
 ?>
 
 <main class="contenedor seccion">
-    <h1>Administrador de Insumos</h1>
+    <h1>Administrador de Equipos</h1>
 
-    <?php if (intval($resultado == 1)): ?>
+    <?php if ($resultado == 1): ?>
         <p class="alerta exito">Suministro Creado Correctamente</p>
-    <?php elseif (intval($resultado == 2)): ?>
+    <?php elseif ($resultado == 2): ?>
         <p class="alerta exito">Suministro Actualizado Correctamente</p>
-    <?php elseif (intval($resultado == 3)): ?>
+    <?php elseif ($resultado == 3): ?>
         <p class="alerta exito">Suministro Eliminado Correctamente</p>
     <?php endif; ?>
 
-    <section class="section">
     <form action="actualizar.php" method="GET" class="buscador-form">
-        <input  type="text" name="q" placeholder="Buscar Suministro..." value="<?php echo isset($_GET['q']) ? $_GET['q'] : ''; ?>">
+        <input class="buscador" type="text" name="q" placeholder="Buscar Equipo..." value="<?php echo htmlspecialchars($busqueda, ENT_QUOTES, 'UTF-8'); ?>">
         <button type="submit" class="boton btn-buscar btn-azul"><i class="bi bi-search"></i></button>
     </form>
 
-    <table class="insumos-cantidad">
-        <thead>
-        <tr>
-                <th>Suministro</th>
-                <th>Cantidad</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php while ($count = mysqli_fetch_assoc($resultadoConsultaCount)) : ?>
-                <tr>
-                <td><?php echo $count['tipo']; ?></td>
-                <td><?php echo $count['cantidad']; ?></td>
-                </tr>
-        <?php endwhile; ?>
-        </tbody>
-    </table>
-    </section>
     <br>
     <table class="insumos">
-
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Suministro</th>
-                <th>Tipo</th>
+                <th>Equipo</th>
                 <th>Codigo</th>
+                <th>Descripcion</th>
                 <th>Fecha Ingreso</th>
-                <th>Fecha de creación</th>
-                <th>Fecha de vencimiento</th>
                 <th>Retirante</th>
                 <th>Fecha de Retiro</th>
+                <th>Area Asignada</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody> <!-- Mostrar los resultados -->
-            <?php while ($insumo = mysqli_fetch_assoc($resultadoConsulta)): ?>
+        <tbody>
+            <?php while ($equipo = mysqli_fetch_assoc($resultadoConsulta)): ?>
                 <tr>
-                    <td><?php echo $insumo['id']; ?></td>
-                    <td><?php echo $insumo['titulo']; ?></td>
-                    <td><?php echo $insumo['tipo']; ?></td>
-                    <td><?php echo $insumo['codigo']; ?></td>
-                    <td><?php echo $insumo['fecha_ingreso']; ?></td>
-                    <td><?php echo $insumo['fecha_cre']; ?></td>
-                    <td><?php echo $insumo['fecha_ven']; ?></td>
-                    <td><?php echo $insumo['retirante']; ?></td>
-                    <td><?php echo $insumo['fecha_ret']; ?></td>
+                    <td><?php echo $equipo['id']?></td>
+                    <td><?php echo $equipo['equipo']?></td>
+                    <td><?php echo $equipo['codigo']?></td>
+                    <td><?php echo $equipo['descripcion'] ?></td>
+                    <td><?php echo $equipo['fecha_ing'] ?></td>
+                    <td><?php echo $equipo['retirante'] ?></td>
+                    <td><?php echo $equipo['fecha_ret'] ?></td>
+                    <td><?php echo $equipo['area'] ?></td>
                     <td>
-                        <form method="POST" class="w-100">
-                            <input type="hidden" name="id" value="<?php echo $insumo['id']; ?>">
+                        <form method="POST" class="w-100" onsubmit="return confirmaEliminacion();">
+                            <input type="hidden" name="id" value="<?php echo $equipo['id'] ?>">
                             <input type="submit" class="boton-opc1" value="Eliminar">
                         </form>
-                        <a href="/actualizar-ins.php?id=<?php echo $insumo['id']; ?>" class="boton-opc2">Actualizar</a>
+                        <a href="/actualizar-ins.php?id=<?php echo $equipo['id']?>" 
+                        class="boton-opc2">Actualizar</a>
                     </td>
                 </tr>
             <?php endwhile; ?>
@@ -124,9 +103,15 @@
     </table>
     
     <button class="btn-azul boton">
-        <a href="/ingresar-insumo.php">Ingresar Insumo</a>
+        <a href="/ingresar-insumo.php">Ingresar Equipo</a>
     </button>
 </main>
+
+<script>
+    function confirmaEliminacion() {
+        return confirm('¿Estás seguro de que quieres eliminar este equipo?');
+    }
+</script>
 
 <?php
     include 'includes/footer.php';

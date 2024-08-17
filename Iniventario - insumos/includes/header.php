@@ -19,7 +19,8 @@
     </header>
 
     <button onclick="goBack()" class="boton btn-azul"><i class="bi bi-arrow-90deg-left"></i> Regresar </button>
-    <a href="/interfaz.php"><button class="boton btn-azul"><i class="bi bi-house"></i> Inicio </button></a>
+    <a href="/interfaz.php">
+    <button class="boton btn-azul"><i class="bi bi-house"></i> Inicio </button></a>
 
     <script src="/js/app.js"></script>
 </body>

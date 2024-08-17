@@ -15,9 +15,9 @@
         header('location: /inicio.php');
     }
 
-    $consulta = "SELECT * FROM insumos WHERE id = ${id}";
+    $consulta = "SELECT * FROM equipos WHERE id = ${id}";
     $resultado = mysqli_query($db, $consulta);
-    $insumo = mysqli_fetch_assoc($resultado);
+    $equipos = mysqli_fetch_assoc($resultado);
 
     //$consulta = "SELECT * FROM insumos";
     //$resultado = mysqli_query($db, $consulta);
@@ -25,29 +25,27 @@
     //arreglo
     $errores = [];
 
-    $titulo = $insumo['titulo'];
-    $tipo = $insumo['tipo'];
-    $codigo = $insumo['codigo'];
+    $equipo = $equipos['equipo'];
+    $codigo = $equipos['codigo'];
+    $descripcion = $equipos['descripcion'];
     // $fecha_ingreso = $insumo['fecha_ingreso'];
-    $fecha_cre = $insumo['fecha_cre'];
-    $fecha_ven = $insumo['fecha_ven'];
-    $retirante = $insumo['retirante'];
-    $fecha_ret = $insumo['fecha_ret'];
+    $retirante = $equipos['retirante'];
+    $fecha_ret = $equipos['fecha_ret'];
+    $area = $equipos['area'];
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        //echo '<pre-->';
+        //echo '<pre>';
         //var_dump($_POST);
-        //echo '';
+        //echo '<pre>';
 
 
-        $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
-        $tipo = mysqli_real_escape_string($db, $_POST['tipo']);
+        $titulo = mysqli_real_escape_string($db, $_POST['equipo']);
         $codigo = mysqli_real_escape_string($db, $_POST['codigo']);
+        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
         // $fecha_ingreso = mysqli_real_escape_string($db, $_POST['fecha_ingreso']);
-        $fecha_cre = mysqli_real_escape_string($db, $_POST['fecha_cre']);
-        $fecha_ven = mysqli_real_escape_string($db, $_POST['fecha_ven']);
         $retirante = mysqli_real_escape_string($db, $_POST['retirante']);
         $fecha_ret = mysqli_real_escape_string($db, $_POST['fecha_ret']);
+        $area = mysqli_real_escape_string($db, $_POST['area']);
         
         if(!$titulo){
             $errores[] = "Debes colocar un Titulo";
@@ -57,18 +55,11 @@
             $codigo[] = "Debes colocar un codigo";
         }
         
-        if(!$fecha_cre){
-            $errores[] = "Debes colocar la fecha de creacion del insumo";
-        }
-
-        if(!$fecha_ven){
-            $errores[] = "Debes colocar la fecha de vencimineto del insumo";
-        }
 
         if(empty($errores)){
 
             //INSERTAR BD
-            $query = "UPDATE insumos SET titulo = '${titulo}', tipo = '${tipo}' ,codigo = ${codigo}, fecha_cre = '${fecha_cre}' ,fecha_ven = '${fecha_ven}'";
+            $query = "UPDATE equipos SET equipo = '${equipo}',codigo = ${codigo}, descripcion = '${descripcion}'";
 
             if (!empty($retirante)) {
                 $query .= ", retirante = '${retirante}'";
@@ -80,6 +71,12 @@
                 $query .= ", fecha_ret = '${fecha_ret}'";
             } else {
                 $query .= ", fecha_ret = NULL";
+            }
+
+            if (!empty($area)) {
+                $query .= ", area = '${area}'";
+            } else {
+                $query .= ", area = NULL";
             }
 
             $query .= " WHERE id = ${id}";
@@ -107,37 +104,30 @@
         <?php endforeach; ?>
 
         <form method="POST" class="formulario">
-                <h2>Actualizar Insumos</h2>
+                <h2>Actualizar Equipos</h2>
 
-                <label for="titulo">Titulo</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Titulo del Suministro" value="<?php echo $titulo?>">
-
-                <label for="tipo">Tipo</label>
-                <br>
-                <select name="tipo">
-                <option value="">-- Seleccione --</option>
-                <option value="Medicamento">Medicamento</option>
-                <option value="Insumo">Insumo</option>
-                </select>
-                <br>
+                <label for="equipo">Titulo</label>
+                <input type="text" id="equipo" name="equipo" placeholder="Titulo del equipo" value="<?php echo $equipo?>">
 
                 <label for="codigo">Codigo</label>
                 <input type="number" id="codigo" name="codigo" placeholder="Codigo del Producto" value="<?php echo $codigo?>">
 
+                <label for="descripcion">Descripcion</label><br>
+                <textarea name="descripcion" id="descripcion" placeholder="Descripcion del equipo">
+                <?php echo $descripcion?>
+                </textarea><br>
+
                 <!-- <label for="fecha_ingreso">Fecha de Ingreso</label>
                 <input type="date" id="fecha_ingreso" name="fecha_ingreso" value="<?php echo $fecha_ingreso?>"> -->
-
-                <label for="fecha_cre">Fecha de Creacion</label>
-                <input type="date" id="fecha_cre" name="fecha_cre" value="<?php echo $fecha_cre?>">
-
-                <label for="fecha_ven">Fecha de Vencimiento</label>
-                <input type="date" id="fecha_ven" name="fecha_ven" value="<?php echo $fecha_ven?>">
 
                 <fieldset>
                     <legend>Retiro</legend>
 
                 <label for="retirante">Retirante</label>
                 <input type="text" id="retirante" name="retirante" placeholder="Nombre del Retirante" value="<?php echo $retirante?>">
+
+                <label for="area">Area Asignada</label>
+                <input type="text" id="area" name="area" placeholder="Nombre del Retirante" value="<?php echo $area?>">
 
                 <label for="fecha_ret">Fecha de Retiro</label>
                 <input type="date" id="fecha_ret" name="fecha_ret" value="<?php echo $fecha_ret?>">

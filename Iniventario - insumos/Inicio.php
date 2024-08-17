@@ -34,7 +34,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $usuario = mysqli_fetch_assoc($resultado);
                 
                 //VERIFICAR SI EL PASSWORD ES CORRECTO O NO
-
                 $auth = password_verify($password, $usuario['password']);
 
                 if($auth){

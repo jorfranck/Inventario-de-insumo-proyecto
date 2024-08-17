@@ -10,23 +10,20 @@ if (!$auth) {
 
 $errores = [];
 
-$titulo = '';
-$tipo = '';
+$equipo = '';
 $codigo = '';
-$fecha_ingreso = '';
-$fecha_cre = '';
-$fecha_ven = '';
+$fecha_ing = '';
+$descripcion = '';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
-    $tipo = mysqli_real_escape_string($db, $_POST['tipo']);
+    $equipo = mysqli_real_escape_string($db, $_POST['equipo']);
     $codigo = mysqli_real_escape_string($db, $_POST['codigo']);
-    $fecha_ingreso = mysqli_real_escape_string($db, $_POST['fecha_ingreso']);
-    $fecha_cre = mysqli_real_escape_string($db, $_POST['fecha_cre']);
-    $fecha_ven = mysqli_real_escape_string($db, $_POST['fecha_ven']);
+    $fecha_ing = mysqli_real_escape_string($db, $_POST['fecha_ing']);
+    $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
 
     // Validar si el código ya ha sido ingresado anteriormente
-    $query = "SELECT COUNT(*) as total FROM insumos WHERE codigo = '$codigo'";
+    $query = "SELECT COUNT(*) as total FROM equipos WHERE codigo = '$codigo'";
     $resultado = mysqli_query($db, $query);
 
     if ($resultado) {
@@ -39,29 +36,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if (!$titulo) {
+    if (!$equipo) {
         $errores[] = "Debes colocar un Titulo";
     }
 
     if (!$codigo) {
-        $errores[] = "Debes colocar un Codigo de Insumo";
+        $errores[] = "Debes colocar un Codigo de Equipo";
     }
 
-    if (!$tipo) {
-        $errores[] = "Debes colocar un tipo";
+    if (!$descripcion) {
+        $errores[] = "Debes colocar una descripcion del Equipo";
     }
 
-    if (!$fecha_cre) {
-        $errores[] = "Debes colocar la fecha de creacion del insumo";
+    if(strlen( $descripcion ) < 20){
+        $errores[] = "Debes colocar una Descripcion y tener mas de 20 caracteres";
     }
 
-    if (!$fecha_ven) {
-        $errores[] = "Debes colocar la fecha de vencimineto del insumo";
-    }
 
     if (empty($errores)) {
         //INSERTAR BD
-        $query = "INSERT INTO insumos (titulo, tipo, codigo, fecha_ingreso, fecha_cre, fecha_ven) VALUES ('$titulo', '$tipo', $codigo, '$fecha_ingreso', '$fecha_cre', '$fecha_ven') ";
+        $query = "INSERT INTO equipos (equipo, codigo, fecha_ing, descripcion) VALUES ('$equipo', $codigo, '$fecha_ing', '$descripcion') ";
 
         $resultado = mysqli_query($db, $query);
 
@@ -83,29 +77,19 @@ include 'includes/header.php';
         <form method="POST" action="" class="formulario">
                 <h2>Ingresar Insumos</h2>
 
-                <label for="titulo">Titulo</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Titulo del Suministro" value="<?php echo $titulo?>">
-
-                <label for="tipo">Tipo de Suministro</label>
-                <br>
-                    <select name="tipo">
-                        <option value="">-- Seleccione --</option>
-                        <option value="Medicamento">Medicamento</option>
-                        <option value="Insumo">Insumo</option>
-                    </select>
-                <br>
+                <label for="equipo">Titulo</label>
+                <input type="text" id="equipo" name="equipo" placeholder="Titulo del equipo" value="<?php echo $equipo?>">
 
                 <label for="codigo">Codigo</label>
                 <input type="number" id="codigo" name="codigo" placeholder="Codigo del Producto" value="<?php echo $codigo?>">
 
+                <label for="descripcion">Descripcion</label><br>
+                <textarea name="descripcion" id="descripcion" placeholder="Descripcion del equipo">
+                <?php echo $descripcion?>
+                </textarea><br>
+
                 <!-- <label for="fecha_ingreso">Fecha de Ingreso</label> -->
-                <input type="hidden" id="fecha_ingreso" name="fecha_ingreso" value="<?php echo date('Y-m-d')?>">
-
-                <label for="fecha_cre">Fecha de Creacion</label>
-                <input type="date" id="fecha_cre" name="fecha_cre" value="<?php echo $fecha_cre?>">
-
-                <label for="fecha_ven">Fecha de Vencimiento</label>
-                <input type="date" id="fecha_ven" name="fecha_ven" value="<?php echo $fecha_ven?>">
+                <input type="hidden" id="fecha_ing" name="fecha_ing" value="<?php echo date('Y-m-d')?>">
 
                 <input type="submit" class="boton btn-azul" value="Ingresar Insumo">
         </form>
