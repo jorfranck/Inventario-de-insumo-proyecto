@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `password` char(60) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `cedula` int NOT NULL,
+  `username` varchar(60) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  PRIMARY KEY (`cedula`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'admin','$2y$10$f76s/QY0BkIndk7s8CEy.eYMcLZN1eP/gIakdvRDHeUjQZSPW2H62'),(2,'usuario1','$2y$10$gW/SEWkOxRdmsrT61tPk/OA/9iqO8ft/RG3v.Q4eDxkzkxJxKN2Wy'),(3,'usuario2','$2y$10$YRHpw5ZNhsBG//HWcBKFLejd0HP7UuzztOeONSipAytjxByMvKl5G'),(4,'usuario3','$2y$10$n7TUQO.4ls3wMCJMMQPDZOiVzbxTw4lZdFpY.04U8v8jote9Hs/Ou');
+INSERT INTO `usuarios` VALUES (30346174,'admin','$2y$10$7Xey.7GVhd/h3n4EN0MOnOAOP6ctadwIQtDo4lBpnxlRmP3FSaS..');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-11 10:31:12
+-- Dump completed on 2024-12-11 18:31:33

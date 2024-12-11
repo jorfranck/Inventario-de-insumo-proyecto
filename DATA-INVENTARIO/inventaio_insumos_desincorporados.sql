@@ -23,15 +23,14 @@ DROP TABLE IF EXISTS `desincorporados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `desincorporados` (
-  `id` int NOT NULL AUTO_INCREMENT,
   `equipo` char(50) NOT NULL,
   `codigo` int NOT NULL,
   `descripcion` longtext NOT NULL,
   `fecha_ing` date NOT NULL,
   `area` char(50) NOT NULL,
   `fecha_des` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +39,7 @@ CREATE TABLE `desincorporados` (
 
 LOCK TABLES `desincorporados` WRITE;
 /*!40000 ALTER TABLE `desincorporados` DISABLE KEYS */;
-INSERT INTO `desincorporados` VALUES (1,'Neubolizador',98765,'                                                Pedro CUHILLLO 2                                                ','2024-12-06','PISO 4','2024-12-08'),(2,'Monitor',12345,'                                Monitor de escritorio                                                       ','2024-12-08','piso 2','2024-12-08'),(3,'monitor',58245,'                                aaaaaaaaaaaaaa                                ','2024-12-10','dadada','2024-12-10');
+INSERT INTO `desincorporados` VALUES ('Monitor',12345,'                                Monitor de escritorio                                                       ','2024-12-08','piso 2','2024-12-08'),('monitor',58245,'                                aaaaaaaaaaaaaa                                ','2024-12-10','dadada','2024-12-10'),('Neubolizador',98765,'                                                Pedro CUHILLLO 2                                                ','2024-12-06','PISO 4','2024-12-08');
 /*!40000 ALTER TABLE `desincorporados` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-11 10:31:12
+-- Dump completed on 2024-12-11 18:31:33
