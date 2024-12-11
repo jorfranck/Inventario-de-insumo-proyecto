@@ -9,13 +9,14 @@ if (!$auth) {
 }
 
 // query para mostrar los insumos activos y no retirados en db
-$query = "SELECT * FROM equipos WHERE fecha_ret IS NULL AND retirante IS NULL";
+// $query = "SELECT * FROM equipos WHERE fecha_ret IS NULL AND retirante IS NULL ";
+$query = "SELECT * FROM equipos WHERE fecha_ret IS NULL AND retirante IS NULL AND condicion_equipo LIKE '%ACTIVO%'";
 
 // consultar DB
 $resultadoConsulta = mysqli_query($db, $query);
 
-// query para juntar los insumos por titulo y cantidad 
-$query_count = "SELECT equipo, COUNT(*) as cantidad FROM equipos WHERE fecha_ret IS NULL AND retirante IS NULL GROUP BY equipo";
+// query para juntar los EQUIPOS por titulo y cantidad 
+$query_count = "SELECT equipo, COUNT(*) as cantidad FROM equipos WHERE condicion_equipo = 'ACTIVO' GROUP BY equipo";
 
 // consultar DB
 $resultadoConsultaCount = mysqli_query($db, $query_count);
@@ -25,12 +26,11 @@ include 'includes/header.php';
 
 
 <main class="contenedor seccion">
-        <h1>Listado de Equipos Activos</h1>
+        <h1>Listado de Equipos sin Retirar</h1>
 
         <table class="insumos">
         <thead>
         <tr>
-                <th>ID</th>
                 <th>Suministro</th>
                 <th>Codigo</th>
                 <th>Descripcion</th>
@@ -40,7 +40,6 @@ include 'includes/header.php';
         <tbody>
                 <?php while ($equipo = mysqli_fetch_assoc($resultadoConsulta)) : ?>
                 <tr>
-                        <td><?php echo $equipo['id']; ?></td>
                         <td><?php echo $equipo['equipo']; ?></td>
                         <td><?php echo $equipo['codigo']; ?></td>
                         <td><?php echo $equipo['descripcion']; ?></td>

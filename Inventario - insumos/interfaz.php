@@ -12,7 +12,7 @@
         <div class="div-menu">
             <ul>
                 <img src="img/Logo-Hospital.png" alt="Logo-Hopital">
-                <a href="ingresar-insumo.php" class="opc">Ingresar Suministro <i class="bi bi-clipboard-plus-fill"></i></a>
+                <a href="ingresar-insumo.php" class="opc">Ingresar Equipos <i class="bi bi-clipboard-plus-fill"></i></a>
                 <a href="actualizar.php" class="opc">Modificar / Eliminar <i class="bi bi-clipboard-x-fill"></i></a>
                 <a href="listar-insumos.php" class="opc">Listar Equipos <i class="bi bi-list-check"></i></a>
                 <a href="buscar-insumo.php" class="opc">Buscar Equipos <i class="bi bi-search"></i></a>

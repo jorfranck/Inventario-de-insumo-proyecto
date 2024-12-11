@@ -14,6 +14,7 @@ $equipo = '';
 $codigo = '';
 $fecha_ing = '';
 $descripcion = '';
+$condicion_equipo = '';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $codigo = mysqli_real_escape_string($db, $_POST['codigo']);
     $fecha_ing = mysqli_real_escape_string($db, $_POST['fecha_ing']);
     $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
+    $condicion_equipo = mysqli_real_escape_string($db, $_POST['condicion_equipo']);
 
     // Validar si el código ya ha sido ingresado anteriormente
     $query = "SELECT COUNT(*) as total FROM equipos WHERE codigo = '$codigo'";
@@ -48,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "Debes colocar una descripcion del Equipo";
     }
 
-    if(strlen( $descripcion ) < 20){
-        $errores[] = "Debes colocar una Descripcion y tener mas de 20 caracteres";
+    if(strlen( $descripcion ) < 10){
+        $errores[] = "Debes colocar una Descripcion y tener mas de 10 caracteres";
     }
 
 
     if (empty($errores)) {
         //INSERTAR BD
-        $query = "INSERT INTO equipos (equipo, codigo, fecha_ing, descripcion) VALUES ('$equipo', $codigo, '$fecha_ing', '$descripcion') ";
+        $query = "INSERT INTO equipos (equipo, codigo, fecha_ing, descripcion, condicion_equipo) VALUES ('$equipo', $codigo, '$fecha_ing', '$descripcion', '$condicion_equipo') ";
 
         $resultado = mysqli_query($db, $query);
 
@@ -86,7 +88,12 @@ include 'includes/header.php';
                 <label for="descripcion">Descripcion</label><br>
                 <textarea name="descripcion" id="descripcion" placeholder="Descripcion del equipo">
                 <?php echo $descripcion?>
-                </textarea><br>
+                </textarea>
+
+                    <select hidden name="condicion_equipo" id="condicion_equipo">
+                        <option value="ACTIVO">ACTIVO</option>
+                    </select>
+                    <br>
 
                 <!-- <label for="fecha_ingreso">Fecha de Ingreso</label> -->
                 <input type="hidden" id="fecha_ing" name="fecha_ing" value="<?php echo date('Y-m-d')?>">

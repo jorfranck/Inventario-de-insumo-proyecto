@@ -10,7 +10,7 @@
     }
 
     // Preparar la consulta
-    $query = "SELECT * FROM equipos";
+    $query = "SELECT * FROM desincorporados";
     $busqueda = $_GET['q'] ?? '';
     $fecha_inicio = $_GET['fecha_inicio'] ?? '';
     $fecha_fin = $_GET['fecha_fin'] ?? '';
@@ -43,13 +43,13 @@
 
         if ($id) {
             // ELIMINAR EL EQUIPO
-            $query = "DELETE FROM equipos WHERE id = ?";
+            $query = "DELETE FROM desincorporados WHERE id = ?";
             $stmt = mysqli_prepare($db, $query);
             mysqli_stmt_bind_param($stmt, 'i', $id);
             $resultado = mysqli_stmt_execute($stmt);
 
             if ($resultado) {
-                header('location: /actualizar.php?resultado=3');
+                header('location: /desincorporados.php?resultado=3');
                 exit;
             } else {
                 echo 'Error: ' . mysqli_error($db);
@@ -61,7 +61,7 @@
 ?>
 
 <main class="contenedor seccion">
-    <h1>Administrador de Equipos</h1>
+    <h1>Administrador de Equipos Desincorporados</h1>
 
     <?php if ($resultado == 1): ?>
         <p class="alerta exito">Equipo Creado Correctamente</p>
@@ -93,10 +93,8 @@
                 <th>Codigo</th>
                 <th>Descripcion</th>
                 <th>Fecha Ingreso</th>
-                <th>Retirante</th>
-                <th>Fecha de Retiro</th>
+                <th>Fecha desincorporacion</th>
                 <th>Area Asignada</th>
-                <th>Condición</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -107,29 +105,25 @@
                     <td><?php echo $equipo['codigo']?></td>
                     <td><?php echo $equipo['descripcion'] ?></td>
                     <td><?php echo $equipo['fecha_ing'] ?></td>
-                    <td><?php echo $equipo['retirante'] ?></td>
-                    <td><?php echo $equipo['fecha_ret'] ?></td>
+                    <td><?php echo $equipo['fecha_des'] ?></td>
                     <td><?php echo $equipo['area'] ?></td>
-                    <td><?php echo $equipo['condicion_equipo'] ?></td>
                     <td>
                         <form method="POST" class="w-100" onsubmit="return confirmaEliminacion();">
                             <input type="hidden" name="id" value="<?php echo $equipo['id'] ?>">
                             <input type="submit" class="boton-opc1" value="ELIMINAR">
                         </form>
-                        <a href="/actualizar-ins.php?id=<?php echo $equipo['id']?>" 
-                        class="boton-opc2">Actualizar</a>
                     </td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
-    <br>
+    
     <button class="btn-azul boton">
         <a href="/ingresar-insumo.php">Ingresar Equipo</a>
     </button>
 
     <button class="btn-azul boton">
-        <a href="/desincorporados.php">Ver Desincorporados</a>
+        <a href="/actualizar.php">Ver Activos</a>
     </button>
 </main>
 

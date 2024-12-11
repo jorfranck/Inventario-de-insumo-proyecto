@@ -292,6 +292,7 @@ table.insumos{
     border-spacing: 0;
     margin: 0 auto;
     border-radius: 10rem;
+    text-transform: uppercase;
 }
 
 /* thead{
@@ -313,6 +314,7 @@ td{
     border: 1px solid rgba(255, 255, 255, 0.493);
     color: white;
     border-radius: .5rem;
+    padding: .7rem;
 }
 .w-100{
     width: 100%;
@@ -322,12 +324,11 @@ td{
     background-color: brown;
     border: 1px solid rgba(0, 0, 0, 0.466);
     color: white;
-    width: 50%;
     cursor: pointer;
     display: block;
     width: 100%;
     margin: .5rem 0;
-    border-radius: 3rem;
+    border-radius: 1rem;
     font-size: 1.6rem;
     padding: .5rem;
     font-weight: 600;
@@ -335,13 +336,18 @@ td{
 .boton-opc2{
     background-color: rgb(45, 77, 146);
     color: white;
-    width: 50%;
     display: block;
     width: 100%;
     margin: .5rem 0;
     border: 1px solid rgba(0, 0, 0, 0.466);
-    border-radius: 3rem;
+    border-radius: 1rem;
     font-weight: 700;
 }
 
+.buscador-form {
+    width: auto;
+}
+.buscador-form input[type = 'date']{
+    width: 20%;
+}
 
